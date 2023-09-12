@@ -32,6 +32,7 @@ module.exports = {
   devServer: {
     static: './dist',
     hot: true,
+    port: 3000
   },
 
   output: {
@@ -61,7 +62,7 @@ module.exports = {
         type: 'asset/resource',
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -76,5 +77,8 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
 };
