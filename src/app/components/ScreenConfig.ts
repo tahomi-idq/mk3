@@ -1,3 +1,3 @@
 export default interface ScreenConfig {
-    onEnd:Function,
+    onEnd:Function
 }

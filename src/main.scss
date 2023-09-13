@@ -5,3 +5,24 @@
 html{
     font-size: 30px;
 }
+
+.blink {
+    animation-name: blinker;
+    animation-iteration-count: 4;
+    animation-timing-function: cubic-bezier(1.0,0);
+    animation-duration: .1s;
+    -webkit-animation-name: blinker;
+    -webkit-animation-iteration-count: 4;
+    -webkit-animation-timing-function: cubic-bezier(1.0,0);
+    -webkit-animation-duration: .1s;
+  }
+   
+  @keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+  }
+   
+  @-webkit-keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+  }
