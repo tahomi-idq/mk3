@@ -2,8 +2,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+  font-family: 'MK3';
+  src: url("../src/assets/fonts/Mortal\ Kombat\ 3\ Regular.ttf") format('truetype');
+}
+
 html{
     font-size: 30px;
+    font-family: 'MK3';
 }
 
 .blink {

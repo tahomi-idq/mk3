@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ScreenConfig from "../ScreenConfig"
 import { Character } from "../../entities/character";
 import { GameContext } from "../../context/PlayerContext";
-import { getAllRows, getCharactersList } from "../../utils/CharacterUtils";
-import { AudioPlayer } from "../../utils/AudioUtils";
+import { getCharactersList } from "../../utils/CharacterUtils"
+import charBack from "../../../assets/images/vs-back.jpeg"
 
 export default function CharacterSelectScreen({onEnd, setP1character, setP2character}:CharacterSelectConfig):JSX.Element {
 
@@ -12,8 +12,8 @@ export default function CharacterSelectScreen({onEnd, setP1character, setP2chara
     const [p2Lock, setP2Lock] = useState(false);
     const [screenStarted, setScreenStarted] = useState(false);
 
-    const iconWidth = 300;
-    const iconHeight = 400;
+    const iconWidth = 250;
+    const iconHeight = 306;
 
     const p1KeyEvent = (event:KeyboardEvent) => {
 
@@ -97,13 +97,14 @@ export default function CharacterSelectScreen({onEnd, setP1character, setP2chara
 
         const p1Styles = " border-green-600 ";
         const p2Styles = " border-red-700 ";
+        const whiteShadow = "-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white"
 
         const [classes, setClasses] = useState("");
         const [p1Selected, setP1Selected] = useState(false);
         const [p2Selected, setP2Selected] = useState(false);
 
         useEffect(()=>{
-            setClasses("relative box-border border-8 " + (p1Selected?p1Styles:(p2Selected?p2Styles:" ")) )
+            setClasses("relative box-border border-8  border-gray-800 " + (p1Selected?p1Styles:(p2Selected?p2Styles:" ")) )
             
         }, [p1Selected, p2Selected])
 
@@ -120,12 +121,18 @@ export default function CharacterSelectScreen({onEnd, setP1character, setP2chara
 
         return <div key={index} style={{
             backgroundImage: `url(${character.icon})`,
-            backgroundPosition: "center"
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "100%"
         }} className={classes}>
             <div className="absolute w-full h-full">
                 <div className="relative w-full h-full">
-                    {p1Selected?<span className="absolute top-2 left-2">P1</span>:null}
-                    {p2Selected?<span className="absolute bottom-2 right-2">P2</span>:null}
+                    {p1Selected?<span style={{
+                        textShadow: whiteShadow
+                    }} className="absolute top-2 left-2 text-green-600">P1</span>:null}
+                    {p2Selected?<span style={{
+                        textShadow: whiteShadow
+                    }} className="absolute bottom-2 right-2 text-red-700">P2</span>:null}
                 </div>
             </div>
         </div>
@@ -193,20 +200,38 @@ export default function CharacterSelectScreen({onEnd, setP1character, setP2chara
 
     }, [p1Lock, p2Lock])
 
-    return <div className="w-screen h-screen flex">
-
-            <div style={{
-                width: iconWidth * 5 + "px",
-                height: iconHeight * 3 + "px"
-            }} className={`grid grid-cols-5 grid-rows-3 m-auto`}> 
-                {
-                    getCharactersList().map((item, index)=>{
-                        return generateCard(item, index);
-                    })
-                }
+    return <div className="w-screen h-screen relative text-white">
+        <div className="w-screen h-screen absolute z-0">
+            <img src={charBack} className="h-screen w-screen" alt="" />
+        </div>
+        <div className="absolute z-10 w-screen h-screen grid grid-cols-[1fr_minmax(1200px,_2fr)_1fr]" >
+            <div className="flex">
+                <img className="mt-auto ml-auto mr-auto" style={{height:"600px"}} height={600} src={p1.sprite} alt="" />
             </div>
-        
-    </div>
+            <div className="h-screen w-[100%] flex flex-col">
+                <h1 className="text-center p-4 text-xl">SELECT YOUR FIGHTER</h1>
+                <div 
+                // style={{
+                //     width: iconWidth * 5 + "px",
+                //     height: iconHeight * 3 + "px"
+                // }} 
+                className={`grid grid-cols-5 grid-rows-3 m-auto w-[100%] min-h-[900px]`}> 
+                    {
+                        getCharactersList().map((item, index)=>{
+                            return generateCard(item, index);
+                        })
+                    }
+                </div>
+                <h1 className="text-center p-4 text-xl">KOMBAT ZONE: SOUL CHAMBER</h1>
+            </div>
+            <div className="flex">
+                <img className="mt-auto ml-auto mr-auto" height={600} style={{
+                    height: "600px",
+                    transform: "scale(-1, 1)"
+                }} src={p2.sprite} alt="" />
+            </div>
+        </div>
+    </div> 
 }
 
 interface CharacterSelectConfig extends ScreenConfig {

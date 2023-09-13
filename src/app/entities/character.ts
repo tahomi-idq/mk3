@@ -1,15 +1,13 @@
 import { getBot, getLeft, getRight, getTop } from "../utils/CharacterUtils";
 
 export class Character {
-    constructor(name:string, icon:string, sprite:string, photo:string, left:number, top:number) {
-        this.name = name;
+    constructor(icon:string, sprite:string, photo:string, left:number, top:number) {
         this.icon = icon;
         this.sprite = sprite;
         this.photo = photo;
         this.left = left;
         this.top = top;
     }
-    name;
     icon;
     sprite;
     photo;
